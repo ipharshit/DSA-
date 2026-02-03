@@ -11,7 +11,7 @@ public:
                 //travelling on other words
                 if(strs[j][i]=='\0') return ans;;
                 if(strs[j]=="") return "";
-                if(currentcharacter==strs[j][i]){
+                if( currentcharacter==strs[j][i]){
                     match=true;
                 }
                 else{ match=false;
