@@ -1,42 +1,34 @@
 class Solution {
 public:
     vector<int> sortedSquares(vector<int>& nums) {
-        int i=0;
+        int i=0;int j=0;
         vector<int>ans;
-        vector<int>less;
-        vector<int>greater;
-        while(i<nums.size()){
-            if(nums[i]<0){
-            less.push_back(nums[i]);
-            }
-            else{
-                greater.push_back(nums[i]);
-            }
-            i++;
+        while(j<nums.size() and nums[j]<0){
+            
+            j++;
         }
-        i=0;int j=0;
-        reverse(less.begin(),less.end());
+        i=j-1;
         
-        while(i<less.size() and  j<greater.size()){
-            if(abs(less[i])>greater[j]){
-                int sq=greater[j]*greater[j];
+        while(i>=0 and j<nums.size()){
+            if(abs(nums[i])>=nums[j]){
+                int sq=nums[j]*nums[j];
                 ans.push_back(sq);
                 j++;
             }
             else{
-                int sq=less[i]*less[i];
+                int sq=nums[i]*nums[i];
                 ans.push_back(sq);
-                i++;
+                i--;
             }
         }
         //yaha tak aa gaya
         //matlab koi 1 array khali ho gya
-        while(i<less.size()){
-            ans.push_back(less[i]*less[i]);
-            i++;
+        while(i>=0){
+            ans.push_back(nums[i]*nums[i]);
+            i--;
         }
-        while(j<greater.size()){
-            ans.push_back(greater[j]*greater[j]);
+        while(j<nums.size()){
+            ans.push_back(nums[j]*nums[j]);
             j++;
         }
         return ans;
