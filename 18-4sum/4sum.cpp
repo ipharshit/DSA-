@@ -3,7 +3,7 @@ public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
         vector<vector<int>>ans;
         if(nums.size()<4) return ans;
-        vector<int>temp;
+        //vector<int>temp;
         sort(nums.begin(),nums.end());
         for(int i=0;i<nums.size()-3;i++){
             if(i > 0 && nums[i] == nums[i-1]) continue;
