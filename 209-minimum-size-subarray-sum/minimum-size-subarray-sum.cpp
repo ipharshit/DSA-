@@ -1,24 +1,23 @@
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
-        int maxlength=INT_MAX;
         int low=0;
         int high=0;
-        long long sum=0;
+        int min_len=INT_MAX;
+        int sum=0;
         while(high<nums.size()){
-            // pehle to hire karo
+            // hire karo 
             sum+=nums[high];
-            // check karo agar kaam ho raha hai
+            // check if kaam hone laga 
             while(sum>=target){
+                // hone laga
+                //fire
                 int length=high-low+1;
-                maxlength=min(length,maxlength);
-                // firing start
+                min_len=min(length,min_len);
                 sum-=nums[low++];
             }
-            // kaam hona band ho gyaa
-            // fir se hire karo
             high++;
         }
-        return maxlength==INT_MAX?0:maxlength;
+        return min_len==INT_MAX?0:min_len;
     }
 };
