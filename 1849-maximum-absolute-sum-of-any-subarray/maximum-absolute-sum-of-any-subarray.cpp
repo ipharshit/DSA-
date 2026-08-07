@@ -8,7 +8,7 @@ public:
         for(int i=1;i<nums.size();i++){
             currMaxSum=max(nums[i],currMaxSum+nums[i]);
             currMinSum=min(nums[i],currMinSum+nums[i]);
-            ans=max(ans,max(currMaxSum,abs(currMinSum)));
+            ans=max(ans,max(abs(currMaxSum),abs(currMinSum)));
         }
         return ans;
     }
