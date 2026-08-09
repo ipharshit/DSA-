@@ -45,11 +45,45 @@ int solve(vector<int>&piles,int i,int M,bool aliceTurn){
     return dp[i][M][aliceTurn]=ans;
     }
 
+    int solve3(vector<int>& piles){
+        // step 1
+         vector<vector<vector<int>>>dp(piles.size()+1,vector<vector<int>>(piles.size()+1,vector<int>(2,0)));
+         //step 2-> already done
+         //step 3
+         for(int i=piles.size()-1;i>=0;i--){
+            for(int M=piles.size();M>=1;M--){
+                for(int aliceTurn=0;aliceTurn<=1;aliceTurn++){
+                    // copy paste
+                    int ans=aliceTurn?INT_MIN:INT_MAX;
+    int curr_sum=0;
+    // alice plays fist
+    for(int x=1; i+x <= piles.size() and x<=2*M;x++){
+        curr_sum+=piles[i+x-1];
+        // i want to find the max stones that alice can get
+        // so the difference idea won't work
+        if(aliceTurn){
+            // alice ki turn -> i want max
+             ans=max(ans,curr_sum+dp[i+x][max(x,M)][false]);
+        }
+        else{
+            // bob ki turn
+            ans=min(ans,dp[i+x][max(x,M)][true]);
+        }
+    }
+                //step 2
+                dp[i][M][aliceTurn]=ans;
+                }
+            }
+         }
+         return dp[0][1][1];
+    }
+
     int stoneGameII(vector<int>& piles) {
         // return solve(piles,0,1,true);
 
         // 3d dp
         vector<vector<vector<int>>>dp(piles.size()+1,vector<vector<int>>(piles.size()+1,vector<int>(2,-1)));
-        return solve2(piles,0,1,true,dp);
+        // return solve2(piles,0,1,true,dp);
+        return solve3(piles);
     }
 };
