@@ -36,12 +36,28 @@ public:
         return dp[n]=ans;
     }
 
+    bool solve3(int n){
+        // step 1+step 2
+        vector<int>dp(n+1,0);
+        // step 3
+        for(int j=0;j<=n;j++){
+            // copy paste
+             bool ans=false;
+            for(int i=1;1LL*i*i<=j;i++){
+                ans=ans||!dp[j-i*i];
+            }
+            // step 2
+            dp[j]=ans;
+        }
+        return dp[n];
+    }
 
     bool winnerSquareGame(int n) {
         // return solve(n);
 
         // 1d dp
-        vector<int>dp(n+1,-1);
-        return solve2(n,dp);
+        // vector<int>dp(n+1,-1);
+        // return solve2(n,dp);
+        return solve3(n);
     }
 };
