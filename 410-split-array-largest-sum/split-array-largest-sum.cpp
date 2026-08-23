@@ -24,7 +24,7 @@ bool canSplitWithCurrentSum(vector<int>& nums, int k,int mid){
     int splitArray(vector<int>& nums, int k) {
         // define the search space
         // min sum of array -> single element
-        int s=*min_element(nums.begin(),nums.end());
+        int s=*max_element(nums.begin(),nums.end());
         // max sum of array-> whole arra sum
         int e=accumulate(nums.begin(),nums.end(),0);
         int ans=0;
