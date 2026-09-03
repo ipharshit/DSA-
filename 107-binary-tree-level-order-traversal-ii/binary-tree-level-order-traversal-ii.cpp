@@ -28,7 +28,9 @@ public:
                 temp.push_back(front->val);
             }
             // yaha par mere pas 1 lvl complete ho gya
-            ans.push_back(temp);
+            deque<vector<int>>dq;
+            dq.push_front(temp);
+            ans.push_back(dq.front());
         }
         reverse(ans.begin(),ans.end());
         return ans;
