@@ -15,6 +15,7 @@ public:
          if(!root) return {};
         vector<vector<int>>ans;
         queue<TreeNode*>q;
+        deque<vector<int>>dq;
         // initial state
         q.push(root);
         while(!q.empty()){
@@ -28,11 +29,14 @@ public:
                 temp.push_back(front->val);
             }
             // yaha par mere pas 1 lvl complete ho gya
-            deque<vector<int>>dq;
             dq.push_front(temp);
-            ans.push_back(dq.front());
+            
         }
-        reverse(ans.begin(),ans.end());
+        // reverse(ans.begin(),ans.end());
+        while(!dq.empty()){
+            auto front=dq.front(); dq.pop_front();
+            ans.push_back(front);
+        }
         return ans;
     }
 };
