@@ -12,13 +12,26 @@ class Solution {
 public:
 int solve(TreeNode* root,TreeNode*p,TreeNode*q,TreeNode* &ans){
     if(!root) return 0;
-    int leftAns=solve(root->left,p,q,ans);
-    int rightAns=solve(root->right,p,q,ans);
-    int self=0;
-    if(root==p or root==q) self=1;
-    self+=leftAns+rightAns;
-    if(self==2 and ans==nullptr) ans=root;
-    return self;
+    int rightAns;
+    int leftAns;
+    if(p->val>root->val and q->val>root->val){
+        // both p and q exists in right part
+        // no need to go left
+        rightAns=solve(root->right,p,q,ans);
+        leftAns=0;
+    }
+    else if(p->val<root->val and q->val<root->val){
+        // both p and q exist in left part
+        // no need to go right
+        leftAns=solve(root->left,p,q,ans);
+        rightAns=0;
+    }
+    else{
+        // p and q are in diff parts
+        ans=root;
+    }
+    
+    return 0;
 }
 
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
