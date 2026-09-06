@@ -12,26 +12,22 @@
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
+        stack<TreeNode*>st;
         auto t=root;
-        priority_queue<TreeNode*>pq;
-        priority_queue<int>qp;
-        // initial state
-        pq.push(root);
-        while(!pq.empty()){
-            int size=pq.size();
-            while(size--){
-                auto front=pq.top(); pq.pop();
-                if(front->left) pq.push(front->left);
-                if(front->right) pq.push(front->right);
-                if(qp.size()<k) qp.push(front->val);
-                else{
-                    if(front->val<qp.top()){
-                        qp.pop();
-                        qp.push(front->val);
-                    }
-                }
+        while(t){
+            st.push(t);
+            t=t->left;
+        }
+        while(!st.empty()){
+            auto front=st.top(); st.pop();
+            k--;
+            if(k==0) return front->val;
+            auto rightChild=front->right;
+            while(rightChild){
+                st.push(rightChild);
+                rightChild=rightChild->left;
             }
         }
-        return qp.top();
+        return 0;
     }
 };
