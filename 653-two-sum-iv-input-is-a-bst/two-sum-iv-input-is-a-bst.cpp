@@ -11,24 +11,55 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root,vector<int>&ans){
-        // inorder
-        if(!root) return;
-        solve(root->left,ans);
-        ans.push_back(root->val);
-        solve(root->right,ans);
+stack<TreeNode*>asc;
+stack<TreeNode*>desc;
+TreeNode* getSmall(){
+    auto front=desc.top(); desc.pop();
+    // yeh sabse badi value h
+    auto leftChild=front->left;
+    while(leftChild){
+        desc.push(leftChild);
+        leftChild=leftChild->right;
     }
-    bool findTarget(TreeNode* root, int k) {
-        vector<int>ans;
-        solve(root,ans);
-        int s=0;
-        int e=ans.size()-1;
-        while(s<e){
-            int sum=ans[s]+ans[e];
-            if(sum==k) return true;
-            else if(sum<k) s++;
-            else e--;
+    return front;
+}
+TreeNode* getLarge(){
+        auto front=asc.top(); asc.pop();
+        // yeh sabse choti value h
+        auto rightChild=front->right;
+        while(rightChild){
+            asc.push(rightChild);
+            rightChild=rightChild->left;
         }
-        return false;
+    return front;
+}
+    bool findTarget(TreeNode* root, int k) {
+    // initial state
+    auto t=root;
+    while(root){
+        asc.push(root);
+        root=root->left;
+    }
+    // initial state
+    root=t;
+    while(root){
+        desc.push(root);
+        root=root->right;
+    }
+    auto low=getLarge();
+    auto high=getSmall();
+    while(low and high and low->val<high->val){
+        int sum=low->val+high->val;
+        if(sum==k) return true;
+        else if(sum>k){
+            // find smaller sum
+            high=getSmall();
+        }
+        else if(sum<k){
+            // find larger sum
+            low=getLarge();
+        }
+    }
+    return false;
     }
 };
