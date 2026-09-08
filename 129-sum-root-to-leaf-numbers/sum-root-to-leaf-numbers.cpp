@@ -11,12 +11,11 @@
  */
 class Solution {
 public:
-void solve(TreeNode* root,vector<int>&numbers,int &digit,int &currSum){
+void solve(TreeNode* root,int &numbers,int &digit,int &currSum){
     if(!root) return;
-    currSum+=root->val;
     digit=digit*10+root->val;
     if(!root->left and !root->right){
-        numbers.push_back(digit);
+        numbers+=digit;
     }
     solve(root->left,numbers,digit,currSum);
     solve(root->right,numbers,digit,currSum);
@@ -24,14 +23,10 @@ void solve(TreeNode* root,vector<int>&numbers,int &digit,int &currSum){
     digit/=10;
 }
     int sumNumbers(TreeNode* root) {
-        vector<int>numbers;
+        int numbers=0;
         int digit=0;
-        int sum=0;
-        int currSum;
+        int currSum=0;
         solve(root,numbers,digit,currSum);
-        for(auto number:numbers){
-            sum+=number;
-        }
-        return sum;
+        return numbers;
     }
 };
