@@ -1,16 +1,23 @@
 class Solution {
 public:
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        unordered_map<int,int>mp;
-        mp[0]=1;
+int sliding(vector<int>&nums,int goal){
+    if(goal<0) return 0;
+    int i=0;
+        int j=0;
+        int sum=0;
         int ans=0;
-        int currSum=0;
-        for(int i=0;i<nums.size();i++){
-            currSum+=nums[i];
-            int reqSum=currSum-goal;
-            ans+=mp[reqSum];
-            mp[currSum]++;
+        while(j<nums.size()){
+            sum+=nums[j];
+            while(sum>goal){
+                sum-=nums[i];
+                i++;
+            }
+            ans+=j-i+1;
+            j++;
         }
         return ans;
+}
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        return sliding(nums,goal)-sliding(nums,goal-1);
     }
 };
